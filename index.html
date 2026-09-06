@@ -65,6 +65,13 @@
     <!-- Contenedor de las fotos/videos -->
     <div class="galeria" id="galeria-multimedia"></div>
 
+    <!-- El Visor Oculto para la pantalla completa -->
+    <div id="miLightbox" class="lightbox" onclick="cerrarVisor()">
+        <span class="lightbox-cerrar">&times;</span>
+        <img class="lightbox-contenido" id="imgLightbox" onclick="event.stopPropagation()">
+    </div>
+
+
     <script src="script.js"></script>
 </body>
 </html>
