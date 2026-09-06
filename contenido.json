@@ -1,22 +1,21 @@
 [
-    {
-        "titulo": "Todos juntos",
-        "tipo": "foto",
-        "url": "https://i.postimg.cc/TwhDsmth/IMG-20260905-WA0004.jpg",
-        "evento": "Celebracion 40 Años"
-    },
-    {
-        "titulo": "Hombres",
-        "tipo": "foto",
-        "url": "https://i.postimg.cc/wv3mrJwv/IMG-20260905-WA0067.jpg",
-        "evento": "Celebracion 40 Años"
-    },
-    {
-        "titulo": "Mujeres",
-        "tipo": "foto",
-        "url": "https://i.postimg.cc/nzMDW73r/IMG-20260905-WA0068.jpg",
-        "evento": "Celebracion 40 Años"
-    },
+    {"titulo": "Todos Los Quintos", "tipo": "foto", "url": "https://i.postimg.cc/TwhDsmth/IMG-20260905-WA0004.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Hombres", "tipo": "foto", "url": "https://i.postimg.cc/wv3mrJwv/IMG-20260905-WA0067.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Mujeres", "tipo": "foto", "url": "https://i.postimg.cc/nzMDW73r/IMG-20260905-WA0068.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Fran-Marcilla-Leticia-Beatriz.F-Pili", "tipo": "foto", "url": "https://i.postimg.cc/QCL8sSBk/IMG-20260905-WA0005.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Noelia-Cachena", "tipo": "foto", "url": "https://i.postimg.cc/8c8pDwFh/IMG-20260905-WA0006.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Diego-Fran-Puy-Leticia", "tipo": "foto", "url": "https://i.postimg.cc/MHk6xtc7/IMG-20260905-WA0007.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Leidy-Rebeca", "tipo": "foto", "url": "https://i.postimg.cc/zvmz5pLF/IMG-20260905-WA0008.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Beatriz.A-Cachena-Jesus", "tipo": "foto", "url": "https://i.postimg.cc/8c8pDwFZ/IMG-20260905-WA0009.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Miguel-Raquel.A", "tipo": "foto", "url": "https://i.postimg.cc/8c8pDwFw/IMG-20260905-WA0010.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Soraya-Adriana", "tipo": "foto", "url": "https://i.postimg.cc/j2VxKvW8/IMG-20260905-WA0012.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Raquel.B-Mikel.D", "tipo": "foto", "url": "https://i.postimg.cc/7hvHDXCQ/IMG-20260905-WA0013.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Bar ES3", "tipo": "foto", "url": "https://i.postimg.cc/T18dGQy4/IMG-20260905-WA0015.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Daniel-Soraya", "tipo": "foto", "url": "https://i.postimg.cc/SRWyK88t/IMG-20260905-WA0019.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Pablo-Daniel-Mandarina-Miguel", "tipo": "foto", "url": "https://i.postimg.cc/5ywxtvv7/IMG-20260905-WA0021.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Ignacio", "tipo": "foto", "url": "https://i.postimg.cc/WzM24rrH/IMG-20260905-WA0023.jpg", "evento": "Celebracion 40 Años"},
+{"titulo": "Daniel-Soraya", "tipo": "foto", "url": "https://i.postimg.cc/Fzj9Kcc6/IMG-20260905-WA0024.jpg", "evento": "Celebracion 40 Años"},
+
     {
         "titulo": "Video de Muestra",
         "tipo": "video",
