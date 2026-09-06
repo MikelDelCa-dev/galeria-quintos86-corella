@@ -79,13 +79,17 @@ function mostrarElementos(lista) {
 
         if (elemento.tipo === 'foto') {
             tarjeta.innerHTML = `
-                <img src="${elemento.url}" alt="${elemento.titulo}">
+                <div class="media-contenedor">
+                    <img src="${elemento.url}" alt="${elemento.titulo}">
+                </div>
                 <h3>${elemento.titulo}</h3>
                 <span class="etiqueta">${elemento.evento}</span>
             `;
         } else if (elemento.tipo === 'video') {
             tarjeta.innerHTML = `
-                <iframe src="${elemento.url}" width="100%" height="220" style="border:none; border-radius:8px;" allow="autoplay"></iframe>
+                <div class="media-contenedor">
+                    <iframe src="${elemento.url}" allow="autoplay"></iframe>
+                </div>
                 <h3>${elemento.titulo}</h3>
                 <span class="etiqueta">${elemento.evento}</span>
             `;
@@ -93,4 +97,5 @@ function mostrarElementos(lista) {
 
         contenedor.appendChild(tarjeta);
     });
+
 }
