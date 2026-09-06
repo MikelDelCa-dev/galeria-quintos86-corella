@@ -1,13 +1,18 @@
 [
     {
-        "titulo": "Varias personas",
+        "titulo": "Todos juntos",
         "tipo": "foto",
-        "url": "https://picsum.photos"
+        "url": "https://postimg.cc/LYK5YqKM"
     },
     {
-        "titulo": "[nombre],[nombre],[....]",
+        "titulo": "Hombres",
         "tipo": "foto",
-        "url": "https://picsum.photos"
+        "url": "https://postimg.cc/jw02wW00"
+    },
+    {
+        "titulo": "Mujeres",
+        "tipo": "foto",
+        "url": "https://postimg.cc/JDV0DyVC"
     },
     {
         "titulo": "Video de Muestra",
