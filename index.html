@@ -23,13 +23,19 @@
         
         /* Contenedor adaptativo para fotos y videos */
         .media-contenedor { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 8px; background: #111; }
-        .tarjeta img { width: 100%; height: 100%; object-fit: cover; }
+        .tarjeta img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: opacity 0.2s; }
+        .tarjeta img:hover { opacity: 0.9; }
         .tarjeta iframe { width: 100%; height: 100%; border: none; }
         
         .tarjeta h3 { margin: 12px 0 5px 0; font-size: 16px; color: #fff; text-align: left; }
         .etiqueta { display: inline-block; background: #28a745; color: white; font-size: 11px; padding: 3px 8px; border-radius: 10px; margin-top: auto; align-self: flex-start; }
         
-        /* Ajustes extra para pantallas muy pequeñas de móviles */
+        /* 🕶️ ESTILOS DEL VISOR PANTALLA COMPLETA (LIGHTBOX) */
+        .lightbox { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; }
+        .lightbox-contenido { max-width: 90%; max-height: 80%; border-radius: 4px; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        .lightbox-cerrar { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; user-select: none; }
+        .lightbox-cerrar:hover { color: #bbb; }
+
         @media (max-width: 480px) {
             body { padding: 10px; }
             .btn { padding: 6px 12px; font-size: 12px; }
