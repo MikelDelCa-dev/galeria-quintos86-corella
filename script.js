@@ -85,7 +85,7 @@ function mostrarElementos(lista) {
             `;
         } else if (elemento.tipo === 'video') {
             tarjeta.innerHTML = `
-                <video src="${elemento.url}" controls></video>
+                <iframe src="${elemento.url}" width="100%" height="220" style="border:none; border-radius:8px;" allow="autoplay"></iframe>
                 <h3>${elemento.titulo}</h3>
                 <span class="etiqueta">${elemento.evento}</span>
             `;
