@@ -1,0 +1,17 @@
+[
+    {
+        "titulo": "Hermoso Atardecer",
+        "tipo": "foto",
+        "url": "https://picsum.photos"
+    },
+    {
+        "titulo": "Olas del Mar",
+        "tipo": "foto",
+        "url": "https://picsum.photos"
+    },
+    {
+        "titulo": "Video de Muestra",
+        "tipo": "video",
+        "url": "https://w3schools.com"
+    }
+]
