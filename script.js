@@ -78,17 +78,18 @@ function mostrarElementos(lista) {
         tarjeta.className = 'tarjeta';
 
         if (elemento.tipo === 'foto') {
-            // Añadimos la función 'abrirVisor' al hacer clic en la foto
             tarjeta.innerHTML = `
                 <div class="media-contenedor">
-                    <img src="${elemento.url}" alt="${elemento.titulo}" onclick="abrirVisor('${elemento.url}')">
+                    <img src="${elemento.url}" alt="${elemento.titulo}" onclick="abrirVisor('${elemento.url}', 'foto')">
                 </div>
                 <h3>${elemento.titulo}</h3>
                 <span class="etiqueta">${elemento.evento}</span>
             `;
         } else if (elemento.tipo === 'video') {
+            // Se añade un botón flotante encima del iframe para poder capturar el clic de pantalla completa
             tarjeta.innerHTML = `
                 <div class="media-contenedor">
+                    <button class="btn-expandir-video" onclick="abrirVisor('${elemento.url}', 'video')">🔎 Expandir</button>
                     <iframe src="${elemento.url}" allow="autoplay"></iframe>
                 </div>
                 <h3>${elemento.titulo}</h3>
@@ -99,17 +100,27 @@ function mostrarElementos(lista) {
         contenedor.appendChild(tarjeta);
     });
 }
-
-// 👁️ FUNCIONES PARA CONTROLAR LA PANTALLA COMPLETA
-function abrirVisor(urlImagen) {
+// 👁️ VISOR INTELIGENTE UNIVERSAL PARA IMÁGENES Y VIDEOS
+function abrirVisor(url, tipo) {
     const lightbox = document.getElementById('miLightbox');
-    const imgLightbox = document.getElementById('imgLightbox');
+    const cajaLightbox = document.getElementById('cajaLightbox');
     
-    imgLightbox.src = urlImagen; // Asigna la imagen seleccionada
-    lightbox.style.display = 'flex'; // Muestra el panel oscuro
+    // Limpiar lo que hubiera antes adentro del visor oscuro
+    cajaLightbox.innerHTML = "";
+    
+    // Inyectar la etiqueta correcta dependiendo del tipo de archivo
+    if (tipo === 'foto') {
+        cajaLightbox.innerHTML = `<img src="${url}" class="lightbox-contenido">`;
+    } else if (tipo === 'video') {
+        cajaLightbox.innerHTML = `<iframe src="${url}" allow="autoplay" style="width:100%; height:100%;"></iframe>`;
+    }
+    
+    lightbox.style.display = 'flex'; // Desplegar el visor oscuro
 }
-
 function cerrarVisor() {
     const lightbox = document.getElementById('miLightbox');
-    lightbox.style.display = 'none'; // Oculta el panel oscuro
+    const cajaLightbox = document.getElementById('cajaLightbox');
+    
+    lightbox.style.display = 'none'; // Ocultar el visor oscuro
+    cajaLightbox.innerHTML = ""; // Vaciar el contenido para pausar la reproducción de videos pesados al cerrar
 }
