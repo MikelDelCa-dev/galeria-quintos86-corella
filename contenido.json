@@ -2,21 +2,25 @@
     {
         "titulo": "Todos juntos",
         "tipo": "foto",
-        "url": "https://i.postimg.cc/TwhDsmth/IMG-20260905-WA0004.jpg"
+        "url": "https://i.postimg.cc/TwhDsmth/IMG-20260905-WA0004.jpg",
+        "evento": "Celebracion 40 Años"
     },
     {
         "titulo": "Hombres",
         "tipo": "foto",
-        "url": "https://i.postimg.cc/wv3mrJwv/IMG-20260905-WA0067.jpg"
+        "url": "https://i.postimg.cc/wv3mrJwv/IMG-20260905-WA0067.jpg",
+        "evento": "Celebracion 40 Años"
     },
     {
         "titulo": "Mujeres",
         "tipo": "foto",
-        "url": "https://i.postimg.cc/nzMDW73r/IMG-20260905-WA0068.jpg"
+        "url": "https://i.postimg.cc/nzMDW73r/IMG-20260905-WA0068.jpg",
+        "evento": "Celebracion 40 Años"
     },
     {
         "titulo": "Video de Muestra",
         "tipo": "video",
-        "url": "https://w3schools.com"
+        "url": "https://drive.google.com/uc?id=1lS-r_2ha6nysfI_fZf666z2gIQDQY3Nc",
+        "evento": "Celebracion 40 Años"
     }
 ]
