@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria Quintos86</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f9; margin: 0; padding: 20px; text-align: center; }
+        h1 { color: #333; }
+        .filtros { margin-bottom: 20px; }
+        .btn { padding: 10px 20px; margin: 5px; border: none; background: #007bff; color: white; cursor: pointer; border-radius: 5px; font-size: 16px; }
+        .btn:hover { background: #0056b3; }
+        .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 20px; }
+        .tarjeta { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .tarjeta img, .tarjeta video { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
+        .tarjeta h3 { margin: 10px 0 0 0; font-size: 18px; color: #555; }
+    </style>
+</head>
+<body>
+
+    <h1>Galeria Evento Quintos del 86 de Corella 📸🎬</h1>
+    
+    <!-- Botones para filtrar el contenido dinámicamente -->
+    <div class="filtros">
+        <button class="btn" onclick="filtrarGaleria('todos')">Mostrar Todo</button>
+        <button class="btn" onclick="filtrarGaleria('foto')">Solo Fotos</button>
+        <button class="btn" onclick="filtrarGaleria('video')">Solo Videos</button>
+    </div>
+
+    <!-- Aquí es donde JavaScript meterá las fotos y videos -->
+    <div class="galeria" id="galeria-multimedia"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
