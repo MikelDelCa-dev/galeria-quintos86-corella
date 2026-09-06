@@ -78,9 +78,10 @@ function mostrarElementos(lista) {
         tarjeta.className = 'tarjeta';
 
         if (elemento.tipo === 'foto') {
+            // Añadimos la función 'abrirVisor' al hacer clic en la foto
             tarjeta.innerHTML = `
                 <div class="media-contenedor">
-                    <img src="${elemento.url}" alt="${elemento.titulo}">
+                    <img src="${elemento.url}" alt="${elemento.titulo}" onclick="abrirVisor('${elemento.url}')">
                 </div>
                 <h3>${elemento.titulo}</h3>
                 <span class="etiqueta">${elemento.evento}</span>
@@ -97,5 +98,18 @@ function mostrarElementos(lista) {
 
         contenedor.appendChild(tarjeta);
     });
+}
 
+// 👁️ FUNCIONES PARA CONTROLAR LA PANTALLA COMPLETA
+function abrirVisor(urlImagen) {
+    const lightbox = document.getElementById('miLightbox');
+    const imgLightbox = document.getElementById('imgLightbox');
+    
+    imgLightbox.src = urlImagen; // Asigna la imagen seleccionada
+    lightbox.style.display = 'flex'; // Muestra el panel oscuro
+}
+
+function cerrarVisor() {
+    const lightbox = document.getElementById('miLightbox');
+    lightbox.style.display = 'none'; // Oculta el panel oscuro
 }
