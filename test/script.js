@@ -49,7 +49,6 @@ function filtrarPorTexto() {
     aplicarFiltrosCombinados(); 
 }
 
-// 🧽 FUNCIÓN AUXILIAR: Borra las comillas curvas si se colaron en el JSON
 function limpiarTexto(texto) {
     if (!texto) return "";
     return texto.toString().replace(/[“”""'']/g, '').trim().toLowerCase();
@@ -66,7 +65,6 @@ function aplicarFiltrosCombinados() {
         resultado = resultado.filter(item => item.tipo === tipoSeleccionado);
     }
 
-    // 🔍 BUSCADOR OPTIMIZADO: Compara limpiando cualquier tipo de comillas
     if (textoBusqueda !== "") {
         resultado = resultado.filter(item => {
             const tituloLimpio = limpiarTexto(item.titulo);
@@ -90,7 +88,6 @@ function mostrarElementos(lista) {
         const tarjeta = document.createElement('div');
         tarjeta.className = 'tarjeta';
 
-        // Al mostrar el título en la web, también le quitamos las comillas raras de las esquinas
         const tituloPantalla = elemento.titulo ? elemento.titulo.toString().replace(/[“”]/g, '') : 'Sin título';
 
         if (elemento.tipo === 'foto') {
@@ -102,10 +99,10 @@ function mostrarElementos(lista) {
                 <span class="etiqueta">${elemento.evento}</span>
             `;
         } else if (elemento.tipo === 'video') {
+            // 🎬 OPTIMIZADO: La tarjeta ya no renderiza el iframe de fondo, evitando que el móvil colapse
             tarjeta.innerHTML = `
-                <div class="media-contenedor">
-                    <button class="btn-expandir-video" onclick="abrirVisor('${elemento.url}', 'video')">🔎 Expandir</button>
-                    <iframe src="${elemento.url}" allow="autoplay"></iframe>
+                <div class="media-contenedor" style="background: #111;">
+                    <button class="btn-play-video" onclick="abrirVisor('${elemento.url}', 'video')">🎬 Ver Video</button>
                 </div>
                 <h3>${tituloPantalla}</h3>
                 <span class="etiqueta">${elemento.evento}</span>
@@ -116,7 +113,7 @@ function mostrarElementos(lista) {
     });
 }
 
-// 👁️ VISOR CORREGIDO: Evita el solapamiento de videos
+// 👁️ VISOR UNIVERSAL UNIFICADO (Solo crea el iframe en el momento de expandir)
 function abrirVisor(url, tipo) {
     const lightbox = document.getElementById('miLightbox');
     const cajaLightbox = document.getElementById('cajaLightbox');
@@ -126,13 +123,8 @@ function abrirVisor(url, tipo) {
     if (tipo === 'foto') {
         cajaLightbox.innerHTML = `<img src="${url}" class="lightbox-contenido">`;
     } else if (tipo === 'video') {
-        // 1. Ocultamos temporalmente todos los videos que están de fondo en la galería
-        document.querySelectorAll('.media-contenedor iframe').forEach(iframe => {
-            iframe.style.visibility = 'hidden';
-        });
-        
-        // 2. Cargamos el video únicamente dentro del visor de pantalla completa
-        cajaLightbox.innerHTML = `<iframe src="${url}" allow="autoplay" style="width:100%; height:100%;"></iframe>`;
+        // El iframe nace directamente aquí a pantalla completa de forma limpia
+        cajaLightbox.innerHTML = `<iframe src="${url}" allow="autoplay" style="width:100%; height:100%; border-radius:8px;"></iframe>`;
     }
     
     lightbox.style.display = 'flex';
@@ -143,11 +135,7 @@ function cerrarVisor() {
     const cajaLightbox = document.getElementById('cajaLightbox');
     
     lightbox.style.display = 'none';
-    cajaLightbox.innerHTML = ""; // Vacía el visor para destruir el video de pantalla completa
-    
-    // 3. Volvemos a hacer visibles los videos de fondo de la galería
-    document.querySelectorAll('.media-contenedor iframe').forEach(iframe => {
-        iframe.style.visibility = 'visible';
-    });
+    cajaLightbox.innerHTML = ""; // Destruye por completo el iframe al cerrar para liberar la memoria del móvil
 }
+
 
