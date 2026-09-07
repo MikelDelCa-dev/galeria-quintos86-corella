@@ -65,7 +65,7 @@ function aplicarFiltrosCombinados() {
 
     // 3. Filtrar por el Texto escrito en el buscador
     if (textoBusqueda !== "") {
-        resultado = resultado.filter(item => item.titulo.toLowerCase().includes(textoBusqueda));
+        resultado = resultado.filter(item => item.nombre.toLowerCase().includes(textoBusqueda));
     }
 
     mostrarElementos(resultado);
@@ -88,7 +88,7 @@ function mostrarElementos(lista) {
         if (elemento.tipo === 'foto') {
             tarjeta.innerHTML = `
                 <div class="media-contenedor">
-                    <img src="${elemento.url}" alt="${elemento.titulo}" onclick="abrirVisor('${elemento.url}', 'foto')">
+                    <img src="${elemento.url}" alt="${elemento.nombre}" onclick="abrirVisor('${elemento.url}', 'foto')">
                 </div>
                 <h3>${elemento.titulo}</h3>
                 <span class="etiqueta">${elemento.evento}</span>
