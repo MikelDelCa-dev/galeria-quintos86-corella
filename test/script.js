@@ -3,6 +3,7 @@ let eventoSeleccionado = "Todos";
 let tipoSeleccionado = "todos";
 let textoBusqueda = ""; 
 
+// 1. Cargar el archivo JSON automáticamente al abrir la página
 fetch('contenido.json')
     .then(respuesta => respuesta.json())
     .then(datos => {
@@ -44,8 +45,14 @@ function cambiarTipo(tipo, botonPresionado) {
 
 function filtrarPorTexto() {
     const inputBuscador = document.getElementById('buscador');
-    textoBusqueda = inputBuscador.value.toLowerCase(); 
+    textoBusqueda = inputBuscador.value.toLowerCase().trim(); 
     aplicarFiltrosCombinados(); 
+}
+
+// 🧽 FUNCIÓN AUXILIAR: Borra las comillas curvas si se colaron en el JSON
+function limpiarTexto(texto) {
+    if (!texto) return "";
+    return texto.toString().replace(/[“”""'']/g, '').trim().toLowerCase();
 }
 
 function aplicarFiltrosCombinados() {
@@ -59,9 +66,12 @@ function aplicarFiltrosCombinados() {
         resultado = resultado.filter(item => item.tipo === tipoSeleccionado);
     }
 
-    // 🔍 BUSCADOR DE TÍTULO RESTAURADO
+    // 🔍 BUSCADOR OPTIMIZADO: Compara limpiando cualquier tipo de comillas
     if (textoBusqueda !== "") {
-        resultado = resultado.filter(item => item.titulo && item.titulo.toLowerCase().includes(textoBusqueda));
+        resultado = resultado.filter(item => {
+            const tituloLimpio = limpiarTexto(item.titulo);
+            return tituloLimpio.includes(textoBusqueda);
+        });
     }
 
     mostrarElementos(resultado);
@@ -80,12 +90,15 @@ function mostrarElementos(lista) {
         const tarjeta = document.createElement('div');
         tarjeta.className = 'tarjeta';
 
+        // Al mostrar el título en la web, también le quitamos las comillas raras de las esquinas
+        const tituloPantalla = elemento.titulo ? elemento.titulo.toString().replace(/[“”]/g, '') : 'Sin título';
+
         if (elemento.tipo === 'foto') {
             tarjeta.innerHTML = `
                 <div class="media-contenedor">
-                    <img src="${elemento.url}" alt="${elemento.titulo || ''}" onclick="abrirVisor('${elemento.url}', 'foto')">
+                    <img src="${elemento.url}" alt="${tituloPantalla}" onclick="abrirVisor('${elemento.url}', 'foto')">
                 </div>
-                <h3>${elemento.titulo || 'Sin título'}</h3>
+                <h3>${tituloPantalla}</h3>
                 <span class="etiqueta">${elemento.evento}</span>
             `;
         } else if (elemento.tipo === 'video') {
@@ -94,7 +107,7 @@ function mostrarElementos(lista) {
                     <button class="btn-expandir-video" onclick="abrirVisor('${elemento.url}', 'video')">🔎 Expandir</button>
                     <iframe src="${elemento.url}" allow="autoplay"></iframe>
                 </div>
-                <h3>${elemento.titulo || 'Sin título'}</h3>
+                <h3>${tituloPantalla}</h3>
                 <span class="etiqueta">${elemento.evento}</span>
             `;
         }
