@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería Inteligente</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #1e1e24; color: #fff; margin: 0; padding: 20px; text-align: center; }
+        h1 { color: #f4f4f9; margin-bottom: 25px; font-size: 24px; }
+        
+        .seccion-filtros { background: #2a2a35; padding: 15px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .titulo-filtro { font-size: 12px; color: #aaa; margin: 5px 0 10px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .filtros { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 15px; }
+        .filtros:last-child { margin-bottom: 0; }
+        
+        .btn { padding: 8px 16px; border: none; background: #3a3a4a; color: white; cursor: pointer; border-radius: 20px; font-size: 13px; transition: all 0.3s ease; }
+        .btn:hover { background: #4a4a5a; transform: scale(1.02); }
+        .btn.activo { background: #007bff; font-weight: bold; }
+        
+        .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 10px 0; }
+        .tarjeta { background: #2a2a35; padding: 12px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.3); transition: transform 0.2s; display: flex; flex-direction: column; position: relative; }
+        .tarjeta:hover { transform: translateY(-3px); }
+        
+        .media-contenedor { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 8px; background: #111; position: relative; }
+        .tarjeta img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: opacity 0.2s; }
+        .tarjeta img:hover { opacity: 0.9; }
+        .tarjeta iframe { width: 100%; height: 100%; border: none; }
+        
+        .btn-expandir-video { position: absolute; top: 10px; left: 10px; background: rgba(0, 0, 0, 0.7); color: #fff; border: none; padding: 6px 10px; border-radius: 6px; font-size: 11px; cursor: pointer; backdrop-filter: blur(4px); transition: background 0.2s; z-index: 10; }
+        .btn-expandir-video:hover { background: #007bff; }
+        
+        .tarjeta h3 { margin: 12px 0 5px 0; font-size: 16px; color: #fff; text-align: left; }
+        .etiqueta { display: inline-block; background: #28a745; color: white; font-size: 11px; padding: 3px 8px; border-radius: 10px; margin-top: auto; align-self: flex-start; }
+        
+        /* 🕶️ ESTILOS DEL VISOR PANTALLA COMPLETA */
+        .lightbox { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); justify-content: center; align-items: center; }
+        .lightbox-cerrar { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; user-select: none; z-index: 10000; }
+        .lightbox-cerrar:hover { color: #bbb; }
+        
+        .lightbox-caja-contenido { width: 85%; max-width: 900px; aspect-ratio: 16 / 9; display: flex; justify-content: center; align-items: center; }
+        .lightbox-caja-contenido img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 4px; }
+        .lightbox-caja-contenido iframe { width: 100%; height: 100%; border: none; border-radius: 8px; }
+
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .btn { padding: 6px 12px; font-size: 12px; }
+            .galeria { grid-template-columns: 1fr; }
+            .lightbox-caja-contenido { width: 95%; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Quintos del 86 Corella 📸🎬</h1>
+    
+    <div class="seccion-filtros">
+        <div class="titulo-filtro">Filtrar por Evento o Fecha</div>
+        <div class="filtros" id="contenedor-eventos"></div>
+        
+        <div style="border-top: 1px solid #3a3a4a; margin: 10px 0;"></div>
+        
+        <div class="titulo-filtro">Mostrar tipo de archivo</div>
+        <div class="filtros" id="contenedor-tipos">
+            <button class="btn activo" onclick="cambiarTipo('todos', this)">📁 Mostrar Todo</button>
+            <button class="btn" onclick="cambiarTipo('foto', this)">📸 Solo Fotos</button>
+            <button class="btn" onclick="cambiarTipo('video', this)">🎬 Solo Videos</button>
+        </div>
+    </div>
+
+    <div class="galeria" id="galeria-multimedia"></div>
+
+    <!-- El Visor Único Universal -->
+    <div id="miLightbox" class="lightbox" onclick="cerrarVisor()">
+        <span class="lightbox-cerrar">&times;</span>
+        <div class="lightbox-caja-contenido" id="cajaLightbox" onclick="event.stopPropagation()"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
