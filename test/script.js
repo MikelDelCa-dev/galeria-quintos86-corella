@@ -116,15 +116,23 @@ function mostrarElementos(lista) {
     });
 }
 
+// 👁️ VISOR CORREGIDO: Evita el solapamiento de videos
 function abrirVisor(url, tipo) {
     const lightbox = document.getElementById('miLightbox');
     const cajaLightbox = document.getElementById('cajaLightbox');
+    
     cajaLightbox.innerHTML = "";
     
     if (tipo === 'foto') {
         cajaLightbox.innerHTML = `<img src="${url}" class="lightbox-contenido">`;
     } else if (tipo === 'video') {
-        cajaLightbox.innerHTML = `<iframe src="${url}" allow="autoplay"></iframe>`;
+        // 1. Ocultamos temporalmente todos los videos que están de fondo en la galería
+        document.querySelectorAll('.media-contenedor iframe').forEach(iframe => {
+            iframe.style.visibility = 'hidden';
+        });
+        
+        // 2. Cargamos el video únicamente dentro del visor de pantalla completa
+        cajaLightbox.innerHTML = `<iframe src="${url}" allow="autoplay" style="width:100%; height:100%;"></iframe>`;
     }
     
     lightbox.style.display = 'flex';
@@ -133,7 +141,13 @@ function abrirVisor(url, tipo) {
 function cerrarVisor() {
     const lightbox = document.getElementById('miLightbox');
     const cajaLightbox = document.getElementById('cajaLightbox');
+    
     lightbox.style.display = 'none';
-    cajaLightbox.innerHTML = ""; 
+    cajaLightbox.innerHTML = ""; // Vacía el visor para destruir el video de pantalla completa
+    
+    // 3. Volvemos a hacer visibles los videos de fondo de la galería
+    document.querySelectorAll('.media-contenedor iframe').forEach(iframe => {
+        iframe.style.visibility = 'visible';
+    });
 }
 
