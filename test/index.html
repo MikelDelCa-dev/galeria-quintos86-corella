@@ -13,8 +13,7 @@
         .filtros { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 15px; }
         .filtros:last-child { margin-bottom: 0; }
         
-        /* 🔍 ESTILOS DE LA BARRA DE BÚSQUEDA */
-        .caja-busqueda { width: 100%; max-width: 400px; padding: 10px 15px; border: 2px solid #3a3a4a; background: #1e1e24; color: white; border-radius: 20px; font-size: 14px; margin-bottom: 15px; outline: none; transition: border-color 0.3s; }
+        .caja-busqueda { width: 100%; max-width: 400px; padding: 10px 15px; border: 2px solid #3a3a4a; background: #1e1e24; color: white; border-radius: 20px; font-size: 14px; margin-bottom: 15px; outline: none; transition: border-color 0.3s; box-sizing: border-box; }
         .caja-busqueda:focus { border-color: #007bff; }
 
         .btn { padding: 8px 16px; border: none; background: #3a3a4a; color: white; cursor: pointer; border-radius: 20px; font-size: 13px; transition: all 0.3s ease; }
@@ -57,7 +56,7 @@
     <h1>🧪 Zona de Pruebas Secreta 🧪</h1>
     
     <div class="seccion-filtros">
-        <!-- 🔍 Nueva Barra de Búsqueda de texto -->
+        <!-- 🔍 Caja de búsqueda limpia -->
         <input type="text" id="buscador" class="caja-busqueda" placeholder="🔍 Escribe para buscar por título..." oninput="filtrarPorTexto()">
 
         <div class="titulo-filtro">Filtrar por Evento o Fecha</div>
@@ -83,3 +82,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
