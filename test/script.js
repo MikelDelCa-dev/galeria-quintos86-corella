@@ -1,7 +1,7 @@
 let todosLosElementos = [];
 let eventoSeleccionado = "Todos";
 let tipoSeleccionado = "todos";
-let textoBusqueda = ""; // Guarda lo que escribe el usuario
+let textoBusqueda = ""; 
 
 fetch('contenido.json')
     .then(respuesta => respuesta.json())
@@ -42,30 +42,26 @@ function cambiarTipo(tipo, botonPresionado) {
     aplicarFiltrosCombinados();
 }
 
-// 🔍 NUEVA FUNCIÓN: Se ejecuta cada vez que el usuario escribe una letra
 function filtrarPorTexto() {
     const inputBuscador = document.getElementById('buscador');
-    textoBusqueda = inputBuscador.value.toLowerCase(); // Guarda el texto en minúsculas
-    aplicarFiltrosCombinados(); // Cruza los datos con los demás botones
+    textoBusqueda = inputBuscador.value.toLowerCase(); 
+    aplicarFiltrosCombinados(); 
 }
 
-// ⚙️ EL MOTOR: Ahora cruza Evento, Tipo Y Texto al mismo tiempo
 function aplicarFiltrosCombinados() {
     let resultado = todosLosElementos;
 
-    // 1. Filtrar por Evento
     if (eventoSeleccionado !== "Todos") {
         resultado = resultado.filter(item => item.evento === eventoSeleccionado);
     }
 
-    // 2. Filtrar por Tipo (foto o video)
     if (tipoSeleccionado !== "todos") {
         resultado = resultado.filter(item => item.tipo === tipoSeleccionado);
     }
 
-    // 3. Filtrar por el Texto escrito en el buscador
+    // 🔍 BUSCADOR DE TÍTULO RESTAURADO
     if (textoBusqueda !== "") {
-        resultado = resultado.filter(item => item.titulo.toLowerCase().includes(textoBusqueda));
+        resultado = resultado.filter(item => item.titulo && item.titulo.toLowerCase().includes(textoBusqueda));
     }
 
     mostrarElementos(resultado);
@@ -75,9 +71,8 @@ function mostrarElementos(lista) {
     const contenedor = document.getElementById('galeria-multimedia');
     contenedor.innerHTML = ""; 
 
-    // Si la búsqueda no arroja ningún resultado, muestra un mensaje amigable
     if (lista.length === 0) {
-        contenedor.innerHTML = `<p style="grid-column: 1/-1; color: #aaa; padding: 40px; font-size: 16px;">🔍 No se encontraron fotos o videos que coincidan con tu búsqueda.</p>`;
+        contenedor.innerHTML = `<p style="grid-column: 1/-1; color: #aaa; padding: 40px; font-size: 16px;">🔍 No se encontraron elementos que coincidan con tu búsqueda.</p>`;
         return;
     }
 
@@ -88,9 +83,9 @@ function mostrarElementos(lista) {
         if (elemento.tipo === 'foto') {
             tarjeta.innerHTML = `
                 <div class="media-contenedor">
-                    <img src="${elemento.url}" alt="${elemento.titulo}" onclick="abrirVisor('${elemento.url}', 'foto')">
+                    <img src="${elemento.url}" alt="${elemento.titulo || ''}" onclick="abrirVisor('${elemento.url}', 'foto')">
                 </div>
-                <h3>${elemento.titulo}</h3>
+                <h3>${elemento.titulo || 'Sin título'}</h3>
                 <span class="etiqueta">${elemento.evento}</span>
             `;
         } else if (elemento.tipo === 'video') {
@@ -99,7 +94,7 @@ function mostrarElementos(lista) {
                     <button class="btn-expandir-video" onclick="abrirVisor('${elemento.url}', 'video')">🔎 Expandir</button>
                     <iframe src="${elemento.url}" allow="autoplay"></iframe>
                 </div>
-                <h3>${elemento.titulo}</h3>
+                <h3>${elemento.titulo || 'Sin título'}</h3>
                 <span class="etiqueta">${elemento.evento}</span>
             `;
         }
