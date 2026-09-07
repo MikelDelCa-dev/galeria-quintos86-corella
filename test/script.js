@@ -1,8 +1,8 @@
 let todosLosElementos = [];
 let eventoSeleccionado = "Todos";
 let tipoSeleccionado = "todos";
+let textoBusqueda = ""; // Guarda lo que escribe el usuario
 
-// 1. Cargar el archivo JSON automáticamente al abrir la página
 fetch('contenido.json')
     .then(respuesta => respuesta.json())
     .then(datos => {
@@ -12,7 +12,6 @@ fetch('contenido.json')
     })
     .catch(error => console.error("Error cargando el JSON:", error));
 
-// 2. Función para crear dinámicamente los botones de eventos
 function crearBotonesDeEventos() {
     const contenedorEventos = document.getElementById('contenedor-eventos');
     contenedorEventos.innerHTML = ""; 
@@ -36,7 +35,6 @@ function crearBotonesDeEventos() {
     });
 }
 
-// 3. Función que se ejecuta al pulsar Fotos, Videos o Todo
 function cambiarTipo(tipo, botonPresionado) {
     document.querySelectorAll('#contenedor-tipos .btn').forEach(b => b.classList.remove('activo'));
     botonPresionado.classList.add('activo');
@@ -44,25 +42,44 @@ function cambiarTipo(tipo, botonPresionado) {
     aplicarFiltrosCombinados();
 }
 
-// 4. El motor del cruce de datos
+// 🔍 NUEVA FUNCIÓN: Se ejecuta cada vez que el usuario escribe una letra
+function filtrarPorTexto() {
+    const inputBuscador = document.getElementById('buscador');
+    textoBusqueda = inputBuscador.value.toLowerCase(); // Guarda el texto en minúsculas
+    aplicarFiltrosCombinados(); // Cruza los datos con los demás botones
+}
+
+// ⚙️ EL MOTOR: Ahora cruza Evento, Tipo Y Texto al mismo tiempo
 function aplicarFiltrosCombinados() {
     let resultado = todosLosElementos;
 
+    // 1. Filtrar por Evento
     if (eventoSeleccionado !== "Todos") {
         resultado = resultado.filter(item => item.evento === eventoSeleccionado);
     }
 
+    // 2. Filtrar por Tipo (foto o video)
     if (tipoSeleccionado !== "todos") {
         resultado = resultado.filter(item => item.tipo === tipoSeleccionado);
+    }
+
+    // 3. Filtrar por el Texto escrito en el buscador
+    if (textoBusqueda !== "") {
+        resultado = resultado.filter(item => item.titulo.toLowerCase().includes(textoBusqueda));
     }
 
     mostrarElementos(resultado);
 }
 
-// 5. Función para pintar los elementos finales en pantalla
 function mostrarElementos(lista) {
     const contenedor = document.getElementById('galeria-multimedia');
     contenedor.innerHTML = ""; 
+
+    // Si la búsqueda no arroja ningún resultado, muestra un mensaje amigable
+    if (lista.length === 0) {
+        contenedor.innerHTML = `<p style="grid-column: 1/-1; color: #aaa; padding: 40px; font-size: 16px;">🔍 No se encontraron fotos o videos que coincidan con tu búsqueda.</p>`;
+        return;
+    }
 
     lista.forEach(elemento => {
         const tarjeta = document.createElement('div');
@@ -91,11 +108,9 @@ function mostrarElementos(lista) {
     });
 }
 
-// 👁️ VISOR INTELIGENTE UNIVERSAL PARA IMÁGENES Y VIDEOS
 function abrirVisor(url, tipo) {
     const lightbox = document.getElementById('miLightbox');
     const cajaLightbox = document.getElementById('cajaLightbox');
-    
     cajaLightbox.innerHTML = "";
     
     if (tipo === 'foto') {
@@ -110,7 +125,7 @@ function abrirVisor(url, tipo) {
 function cerrarVisor() {
     const lightbox = document.getElementById('miLightbox');
     const cajaLightbox = document.getElementById('cajaLightbox');
-    
     lightbox.style.display = 'none';
     cajaLightbox.innerHTML = ""; 
 }
+
