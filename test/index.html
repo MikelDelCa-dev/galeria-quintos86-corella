@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería Inteligente</title>
+    <title>Mi Galería Inteligente (Pruebas)</title>
     <style>
         body { font-family: Arial, sans-serif; background: #1e1e24; color: #fff; margin: 0; padding: 20px; text-align: center; }
         h1 { color: #f4f4f9; margin-bottom: 25px; font-size: 24px; }
@@ -13,6 +13,10 @@
         .filtros { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 15px; }
         .filtros:last-child { margin-bottom: 0; }
         
+        /* 🔍 ESTILOS DE LA BARRA DE BÚSQUEDA */
+        .caja-busqueda { width: 100%; max-width: 400px; padding: 10px 15px; border: 2px solid #3a3a4a; background: #1e1e24; color: white; border-radius: 20px; font-size: 14px; margin-bottom: 15px; outline: none; transition: border-color 0.3s; }
+        .caja-busqueda:focus { border-color: #007bff; }
+
         .btn { padding: 8px 16px; border: none; background: #3a3a4a; color: white; cursor: pointer; border-radius: 20px; font-size: 13px; transition: all 0.3s ease; }
         .btn:hover { background: #4a4a5a; transform: scale(1.02); }
         .btn.activo { background: #007bff; font-weight: bold; }
@@ -32,7 +36,6 @@
         .tarjeta h3 { margin: 12px 0 5px 0; font-size: 16px; color: #fff; text-align: left; }
         .etiqueta { display: inline-block; background: #28a745; color: white; font-size: 11px; padding: 3px 8px; border-radius: 10px; margin-top: auto; align-self: flex-start; }
         
-        /* 🕶️ ESTILOS DEL VISOR PANTALLA COMPLETA */
         .lightbox { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); justify-content: center; align-items: center; }
         .lightbox-cerrar { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; user-select: none; z-index: 10000; }
         .lightbox-cerrar:hover { color: #bbb; }
@@ -51,9 +54,12 @@
 </head>
 <body>
 
-    <h1>Quintos del 86 Corella 📸🎬</h1>
+    <h1>🧪 Zona de Pruebas Secreta 🧪</h1>
     
     <div class="seccion-filtros">
+        <!-- 🔍 Nueva Barra de Búsqueda de texto -->
+        <input type="text" id="buscador" class="caja-busqueda" placeholder="🔍 Escribe para buscar por título..." oninput="filtrarPorTexto()">
+
         <div class="titulo-filtro">Filtrar por Evento o Fecha</div>
         <div class="filtros" id="contenedor-eventos"></div>
         
@@ -69,7 +75,6 @@
 
     <div class="galeria" id="galeria-multimedia"></div>
 
-    <!-- El Visor Único Universal -->
     <div id="miLightbox" class="lightbox" onclick="cerrarVisor()">
         <span class="lightbox-cerrar">&times;</span>
         <div class="lightbox-caja-contenido" id="cajaLightbox" onclick="event.stopPropagation()"></div>
