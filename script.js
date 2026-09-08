@@ -1,6 +1,7 @@
 let todosLosElementos = [];
 let eventoSeleccionado = "Todos";
 let tipoSeleccionado = "todos";
+let textoBusqueda = ""; 
 
 // 1. Cargar el archivo JSON automáticamente al abrir la página
 fetch('contenido.json')
@@ -12,7 +13,6 @@ fetch('contenido.json')
     })
     .catch(error => console.error("Error cargando el JSON:", error));
 
-// 2. Función para crear dinámicamente los botones de eventos
 function crearBotonesDeEventos() {
     const contenedorEventos = document.getElementById('contenedor-eventos');
     contenedorEventos.innerHTML = ""; 
@@ -36,7 +36,6 @@ function crearBotonesDeEventos() {
     });
 }
 
-// 3. Función que se ejecuta al pulsar Fotos, Videos o Todo
 function cambiarTipo(tipo, botonPresionado) {
     document.querySelectorAll('#contenedor-tipos .btn').forEach(b => b.classList.remove('activo'));
     botonPresionado.classList.add('activo');
@@ -44,7 +43,17 @@ function cambiarTipo(tipo, botonPresionado) {
     aplicarFiltrosCombinados();
 }
 
-// 4. El motor del cruce de datos
+function filtrarPorTexto() {
+    const inputBuscador = document.getElementById('buscador');
+    textoBusqueda = inputBuscador.value.toLowerCase().trim(); 
+    aplicarFiltrosCombinados(); 
+}
+
+function limpiarTexto(texto) {
+    if (!texto) return "";
+    return texto.toString().replace(/[“”""'']/g, '').trim().toLowerCase();
+}
+
 function aplicarFiltrosCombinados() {
     let resultado = todosLosElementos;
 
@@ -56,33 +65,46 @@ function aplicarFiltrosCombinados() {
         resultado = resultado.filter(item => item.tipo === tipoSeleccionado);
     }
 
+    if (textoBusqueda !== "") {
+        resultado = resultado.filter(item => {
+            const tituloLimpio = limpiarTexto(item.titulo);
+            return tituloLimpio.includes(textoBusqueda);
+        });
+    }
+
     mostrarElementos(resultado);
 }
 
-// 5. Función para pintar los elementos finales en pantalla
 function mostrarElementos(lista) {
     const contenedor = document.getElementById('galeria-multimedia');
     contenedor.innerHTML = ""; 
+
+    if (lista.length === 0) {
+        contenedor.innerHTML = `<p style="grid-column: 1/-1; color: #aaa; padding: 40px; font-size: 16px;">🔍 No se encontraron elementos que coincidan con tu búsqueda.</p>`;
+        return;
+    }
 
     lista.forEach(elemento => {
         const tarjeta = document.createElement('div');
         tarjeta.className = 'tarjeta';
 
+        const tituloPantalla = elemento.titulo ? elemento.titulo.toString().replace(/[“”]/g, '') : 'Sin título';
+
         if (elemento.tipo === 'foto') {
             tarjeta.innerHTML = `
                 <div class="media-contenedor">
-                    <img src="${elemento.url}" alt="${elemento.titulo}" onclick="abrirVisor('${elemento.url}', 'foto')">
+                    <img src="${elemento.url}" alt="${tituloPantalla}" onclick="abrirVisor('${elemento.url}', 'foto')">
                 </div>
-                <h3>${elemento.titulo}</h3>
+                <h3>${tituloPantalla}</h3>
                 <span class="etiqueta">${elemento.evento}</span>
             `;
         } else if (elemento.tipo === 'video') {
+            // 🎬 OPTIMIZADO: La tarjeta ya no renderiza el iframe de fondo, evitando que el móvil colapse
             tarjeta.innerHTML = `
-                <div class="media-contenedor">
-                    <button class="btn-expandir-video" onclick="abrirVisor('${elemento.url}', 'video')">🔎 Expandir</button>
-                    <iframe src="${elemento.url}" allow="autoplay"></iframe>
+                <div class="media-contenedor" style="background: #111;">
+                    <button class="btn-play-video" onclick="abrirVisor('${elemento.url}', 'video')">🎬 Ver Video</button>
                 </div>
-                <h3>${elemento.titulo}</h3>
+                <h3>${tituloPantalla}</h3>
                 <span class="etiqueta">${elemento.evento}</span>
             `;
         }
@@ -91,7 +113,7 @@ function mostrarElementos(lista) {
     });
 }
 
-// 👁️ VISOR INTELIGENTE UNIVERSAL PARA IMÁGENES Y VIDEOS
+// 👁️ VISOR UNIVERSAL UNIFICADO (Solo crea el iframe en el momento de expandir)
 function abrirVisor(url, tipo) {
     const lightbox = document.getElementById('miLightbox');
     const cajaLightbox = document.getElementById('cajaLightbox');
@@ -101,7 +123,8 @@ function abrirVisor(url, tipo) {
     if (tipo === 'foto') {
         cajaLightbox.innerHTML = `<img src="${url}" class="lightbox-contenido">`;
     } else if (tipo === 'video') {
-        cajaLightbox.innerHTML = `<iframe src="${url}" allow="autoplay"></iframe>`;
+        // El iframe nace directamente aquí a pantalla completa de forma limpia
+        cajaLightbox.innerHTML = `<iframe src="${url}" allow="autoplay" style="width:100%; height:100%; border-radius:8px;"></iframe>`;
     }
     
     lightbox.style.display = 'flex';
@@ -112,5 +135,5 @@ function cerrarVisor() {
     const cajaLightbox = document.getElementById('cajaLightbox');
     
     lightbox.style.display = 'none';
-    cajaLightbox.innerHTML = ""; 
+    cajaLightbox.innerHTML = ""; // Destruye por completo el iframe al cerrar para liberar la memoria del móvil
 }
