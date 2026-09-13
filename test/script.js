@@ -7,7 +7,7 @@ let textoBusqueda = "";
 // 🎛️ CONFIGURACIÓN DE LA PAGINACIÓN
 let paginaActual = 1;
 const ELEMENTOS_POR_PAGINA = 12; // Modifica a 15 si prefieres más adelante
-// 1. Cargar el archivo JSON automáticamente al abrir la página
+
 fetch('contenido.json')
     .then(respuesta => respuesta.json())
     .then(datos => {
@@ -83,6 +83,25 @@ function aplicarFiltrosCombinados() {
     actualizarPaginacionYGaleria(); // Llama al motor de cortes y páginas
 }
 
+// 🎛️ MOTOR DE LA PAGINACIÓN: Calcula y recorta la lista
+function actualizarPaginacionYGaleria() {
+    const totalElementos = elementosFiltrados.length;
+    const totalPaginas = Math.ceil(totalElementos / ELEMENTOS_POR_PAGINA);
+
+    // Calcular el índice de inicio y fin para el recorte (.slice)
+    const inicio = (paginaActual - 1) * ELEMENTOS_POR_PAGINA;
+    const fin = inicio + ELEMENTOS_POR_PAGINA;
+    
+    // Lista final recortada (máximo 12 elementos)
+    const listaPagina = elementosFiltrados.slice(inicio, fin);
+
+    // Pintar la galería con los 12 elementos cortados
+    mostrarElementos(listaPagina);
+
+    // Crear y actualizar la botonera de páginas abajo
+    dibujarBotonesPaginacion(totalPaginas);
+}
+
 // 🎛️ DIBUJAR BOTONES DE PÁGINA (Anterior, Números, Siguiente)
 function dibujarBotonesPaginacion(totalPaginas) {
     const contenedorPag = document.getElementById('contenedor-paginacion');
@@ -154,17 +173,14 @@ function mostrarElementos(lista) {
     });
 }
 
-// 👁️ VISOR UNIVERSAL UNIFICADO (Solo crea el iframe en el momento de expandir)
 function abrirVisor(url, tipo) {
     const lightbox = document.getElementById('miLightbox');
     const cajaLightbox = document.getElementById('cajaLightbox');
-    
     cajaLightbox.innerHTML = "";
     
     if (tipo === 'foto') {
         cajaLightbox.innerHTML = `<img src="${url}" class="lightbox-contenido">`;
     } else if (tipo === 'video') {
-        // El iframe nace directamente aquí a pantalla completa de forma limpia
         cajaLightbox.innerHTML = `<iframe src="${url}" allow="autoplay" style="width:100%; height:100%; border-radius:8px;"></iframe>`;
     }
     
@@ -174,9 +190,8 @@ function abrirVisor(url, tipo) {
 function cerrarVisor() {
     const lightbox = document.getElementById('miLightbox');
     const cajaLightbox = document.getElementById('cajaLightbox');
-    
     lightbox.style.display = 'none';
-    cajaLightbox.innerHTML = ""; // Destruye por completo el iframe al cerrar para liberar la memoria del móvil
+    cajaLightbox.innerHTML = ""; 
 }
 
 
