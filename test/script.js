@@ -1,8 +1,12 @@
 let todosLosElementos = [];
+let elementosFiltrados = []; // Guarda el resultado de los filtros antes de recortar por página
 let eventoSeleccionado = "Todos";
 let tipoSeleccionado = "todos";
 let textoBusqueda = ""; 
 
+// 🎛️ CONFIGURACIÓN DE LA PAGINACIÓN
+let paginaActual = 1;
+const ELEMENTOS_POR_PAGINA = 12; // Modifica a 15 si prefieres más adelante
 // 1. Cargar el archivo JSON automáticamente al abrir la página
 fetch('contenido.json')
     .then(respuesta => respuesta.json())
@@ -29,6 +33,7 @@ function crearBotonesDeEventos() {
             document.querySelectorAll('#contenedor-eventos .btn').forEach(b => b.classList.remove('activo'));
             boton.classList.add('activo');
             eventoSeleccionado = evento;
+            paginaActual = 1; // Al cambiar de evento, volvemos a la página 1
             aplicarFiltrosCombinados();
         };
         
@@ -40,12 +45,14 @@ function cambiarTipo(tipo, botonPresionado) {
     document.querySelectorAll('#contenedor-tipos .btn').forEach(b => b.classList.remove('activo'));
     botonPresionado.classList.add('activo');
     tipoSeleccionado = tipo;
+    paginaActual = 1; // Al cambiar el tipo, volvemos a la página 1
     aplicarFiltrosCombinados();
 }
 
 function filtrarPorTexto() {
     const inputBuscador = document.getElementById('buscador');
     textoBusqueda = inputBuscador.value.toLowerCase().trim(); 
+    paginaActual = 1; // Al buscar, volvemos a la página 1
     aplicarFiltrosCombinados(); 
 }
 
@@ -72,7 +79,42 @@ function aplicarFiltrosCombinados() {
         });
     }
 
-    mostrarElementos(resultado);
+    elementosFiltrados = resultado; // Guardamos la lista filtrada completa
+    actualizarPaginacionYGaleria(); // Llama al motor de cortes y páginas
+}
+
+// 🎛️ DIBUJAR BOTONES DE PÁGINA (Anterior, Números, Siguiente)
+function dibujarBotonesPaginacion(totalPaginas) {
+    const contenedorPag = document.getElementById('contenedor-paginacion');
+    contenedorPag.innerHTML = ""; // Limpiar botones viejos
+
+    if (totalPaginas <= 1) return; // Si no hay suficientes fotos para hacer 2 páginas, no dibuja botones
+
+    // Botón Anterior ◀️
+    const btnAnt = document.createElement('button');
+    btnAnt.className = 'btn-pag';
+    btnAnt.innerText = "◀️";
+    btnAnt.disabled = paginaActual === 1;
+    btnAnt.onclick = () => { paginaActual--; actualizarPaginacionYGaleria(); window.scrollTo({top: 0, behavior: 'smooth'}); };
+    contenedorPag.appendChild(btnAnt);
+
+    // Botones Numéricos (1, 2, 3...)
+    for (let i = 1; i <= totalPaginas; i++) {
+        const btnNum = document.createElement('button');
+        btnNum.className = 'btn-pag';
+        if (i === paginaActual) btnNum.classList.add('activo');
+        btnNum.innerText = i;
+        btnNum.onclick = () => { paginaActual = i; actualizarPaginacionYGaleria(); window.scrollTo({top: 0, behavior: 'smooth'}); };
+        contenedorPag.appendChild(btnNum);
+    }
+
+    // Botón Siguiente ▶️
+    const btnSig = document.createElement('button');
+    btnSig.className = 'btn-pag';
+    btnSig.innerText = "▶️";
+    btnSig.disabled = paginaActual === totalPaginas;
+    btnSig.onclick = () => { paginaActual++; actualizarPaginacionYGaleria(); window.scrollTo({top: 0, behavior: 'smooth'}); };
+    contenedorPag.appendChild(btnSig);
 }
 
 function mostrarElementos(lista) {
@@ -99,7 +141,6 @@ function mostrarElementos(lista) {
                 <span class="etiqueta">${elemento.evento}</span>
             `;
         } else if (elemento.tipo === 'video') {
-            // 🎬 OPTIMIZADO: La tarjeta ya no renderiza el iframe de fondo, evitando que el móvil colapse
             tarjeta.innerHTML = `
                 <div class="media-contenedor" style="background: #111;">
                     <button class="btn-play-video" onclick="abrirVisor('${elemento.url}', 'video')">🎬 Ver Video</button>
