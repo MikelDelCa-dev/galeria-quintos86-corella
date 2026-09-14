@@ -31,6 +31,13 @@
         /* 🎬 Botón de reproducción de video en la galería */
         .btn-play-video { background: #ffc107; color: #000; border: none; padding: 12px 24px; border-radius: 25px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
         .btn-play-video:hover { background: #ffe066; transform: scale(1.05); }
+
+        /* 🎛️ ESTILOS NUEVOS DE LA PAGINACIÓN */
+        .paginacion-contenedor { display: flex; justify-content: center; align-items: center; gap: 8px; margin: 40px 0 20px 0; flex-wrap: wrap; }
+        .btn-pag { padding: 8px 14px; border: none; background: #2a2a35; color: white; cursor: pointer; border-radius: 8px; font-size: 14px; transition: background 0.2s; }
+        .btn-pag:hover { background: #3a3a4a; }
+        .btn-pag.activo { background: #28a745; font-weight: bold; pointer-events: none; }
+        .btn-pag:disabled { background: #1a1a20; color: #555; cursor: not-allowed; }
         
         .tarjeta h3 { margin: 12px 0 5px 0; font-size: 16px; color: #fff; text-align: left; }
         .etiqueta { display: inline-block; background: #28a745; color: white; font-size: 11px; padding: 3px 8px; border-radius: 10px; margin-top: auto; align-self: flex-start; }
@@ -57,6 +64,7 @@
             .tarjeta h3 { font-size: 13px; margin: 6px 0 3px 0; text-align: center; }
             .etiqueta { font-size: 9px; padding: 2px 6px; float: none; margin: 2px auto 0 auto; display: block; width: fit-content; }
             .btn-play-video { padding: 8px 14px; font-size: 11px; }
+            .btn-pag { padding: 6px 10px; font-size: 12px; }
         }
     </style>
 </head>
@@ -81,6 +89,9 @@
     </div>
 
     <div class="galeria" id="galeria-multimedia"></div>
+
+    <!-- Contenedor inferior donde nacerán los botones de páginas -->
+    <div class="paginacion-contenedor" id="contenedor-paginacion"></div>
 
     <!-- El Visor Único Universal -->
     <div id="miLightbox" class="lightbox" onclick="cerrarVisor()">
