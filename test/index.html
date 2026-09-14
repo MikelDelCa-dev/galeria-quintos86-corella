@@ -135,6 +135,47 @@
             padding: 10px;
         }
 
+        /* ⏳ ESTILOS PARA LA LÍNEA DEL TIEMPO EN LA PORTADA */
+        .linea-tiempo-portada {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px auto;
+            max-width: 750px;
+        }
+        .foto-epoca {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+        .marco-foto {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Hace las fotos perfectamente cuadradas */
+            border-radius: 50%; /* Convierte las fotos en círculos elegantes */
+            overflow: hidden;
+            border: 3px solid #007bff;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, border-color 0.3s;
+            background: #111;
+        }
+        .marco-foto img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .foto-epoca:hover .marco-foto {
+            transform: scale(1.08) rotate(2deg);
+            border-color: #28a745;
+        }
+        .foto-epoca span {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ddd;
+            letter-spacing: 0.5px;
+        }
+
         /* Ajustes extra para pantallas móviles compactas */
         @media (max-width: 480px) {
             body { padding: 8px; }
@@ -143,6 +184,17 @@
             .portada-hero { padding: 40px 15px; margin-bottom: 20px; border-radius: 12px; }
             .portada-hero h1 { font-size: 26px; }
             .portada-hero p { font-size: 13px; }
+             /* 📱 Adaptación del Tríptico para Pantallas Móviles */
+            .linea-tiempo-portada {
+                gap: 12px;
+                margin: 20px auto;
+            }
+            .marco-foto {
+                border-width: 2px;
+            }
+            .foto-epoca span {
+                font-size: 11px;
+            }
             
             /* 📱 Muestra 3 imágenes por fila en lugar de 1 */
             .galeria { grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 5px 0; }
@@ -158,12 +210,34 @@
 </head>
 <body>
 
-    <!-- 🌌 PORTADA DE BIENVENIDA -->
+    <!-- 🌌 PORTADA DE BIENVENIDA CON LÍNEA DEL TIEMPO -->
     <div class="portada-hero">
         <h1>Mi Galería de Recuerdos</h1>
         <p>Un espacio dinámico para revivir nuestros mejores momentos, fotografías y videos compartidos.</p>
         
-        <!-- El buscador ahora vive integrado dentro de la portada de forma elegante -->
+        <!-- ⏳ TRÍPTICO VISUAL: Línea del tiempo de la Quinta -->
+        <div class="linea-tiempo-portada">
+            <div class="foto-epoca">
+                <div class="marco-foto">
+                    <img src="https://picsum.photos" alt="Cuando éramos pequeños">
+                </div>
+                <span>👶 Pequeños</span>
+            </div>
+            <div class="foto-epoca">
+                <div class="marco-foto">
+                    <img src="https://picsum.photos" alt="A los 18 años">
+                </div>
+                <span>🎉 18 Años</span>
+            </div>
+            <div class="foto-epoca">
+                <div class="marco-foto">
+                    <img src="https://picsum.photos" alt="A los 40 años">
+                </div>
+                <span>🚀 40 Años</span>
+            </div>
+        </div>
+        
+        <!-- El buscador se mantiene elegante abajo -->
         <input type="text" id="buscador" class="caja-busqueda" placeholder="🔍 Busca a alguien o un recuerdo por su título..." oninput="filtrarPorTexto()">
     </div>
     
