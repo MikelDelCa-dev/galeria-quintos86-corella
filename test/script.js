@@ -17,28 +17,36 @@ fetch('contenido.json')
     })
     .catch(error => console.error("Error cargando el JSON:", error));
 
+// 🔽 NUEVA FUNCIÓN: Crea las opciones del menú desplegable automáticamente
 function crearBotonesDeEventos() {
-    const contenedorEventos = document.getElementById('contenedor-eventos');
-    contenedorEventos.innerHTML = ""; 
+    const desplegable = document.getElementById('desplegable-eventos');
+    desplegable.innerHTML = ""; // Limpiar opciones
 
-    const eventos = ['Todos', ...new Set(todosLosElementos.map(item => item.evento))];
+    // Obtener lista de eventos únicos
+    const eventos = ['Todos los Eventos', ...new Set(todosLosElementos.map(item => item.evento))];
 
-    eventos.forEach((evento, index) => {
-        const boton = document.createElement('button');
-        boton.className = 'btn';
-        if (index === 0) boton.classList.add('activo');
-        boton.innerText = evento;
-        
-        boton.onclick = () => {
-            document.querySelectorAll('#contenedor-eventos .btn').forEach(b => b.classList.remove('activo'));
-            boton.classList.add('activo');
-            eventoSeleccionado = evento;
-            paginaActual = 1; // Al cambiar de evento, volvemos a la página 1
-            aplicarFiltrosCombinados();
-        };
-        
-        contenedorEventos.appendChild(boton);
+    // Crear una opción por cada evento
+    eventos.forEach(evento => {
+        const opcion = document.createElement('option');
+        opcion.value = evento;
+        opcion.innerText = evento;
+        desplegable.appendChild(opcion);
     });
+}
+
+// 🔽 NUEVA FUNCIÓN: Se activa cuando el usuario elige un evento en el menú
+function cambiarEventoDesplegable() {
+    const desplegable = document.getElementById('desplegable-eventos');
+    
+    // Si elige "Todos los Eventos", internamente lo tratamos como "Todos"
+    if (desplegable.value === "Todos los Eventos") {
+        eventoSeleccionado = "Todos";
+    } else {
+        eventoSeleccionado = desplegable.value;
+    }
+    
+    paginaActual = 1; // Resetea a la página 1
+    aplicarFiltrosCombinados(); // Aplica los filtros
 }
 
 function cambiarTipo(tipo, botonPresionado) {
