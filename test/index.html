@@ -38,6 +38,65 @@
         .btn-pag:hover { background: #3a3a4a; }
         .btn-pag.activo { background: #28a745; font-weight: bold; pointer-events: none; }
         .btn-pag:disabled { background: #1a1a20; color: #555; cursor: not-allowed; }
+
+        /* 🌌 PORTADA / CABECERA HERO PREMIUM */
+        .portada-hero {
+            background: linear-gradient(135deg, #2a2a35 0%, #111115 100%);
+            padding: 60px 20px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .portada-hero h1 {
+            font-size: 36px;
+            background: linear-gradient(45deg, #007bff, #28a745);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 10px 0;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        .portada-hero p {
+            color: #aaa;
+            font-size: 16px;
+            margin: 0 auto 20px auto;
+            max-width: 500px;
+        }
+
+        /* 🔍 BUSCADOR ESTILIZADO */
+        .caja-busqueda {
+            width: 100%;
+            max-width: 450px;
+            padding: 12px 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.2);
+            color: white;
+            border-radius: 30px;
+            font-size: 15px;
+            margin-bottom: 0;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .caja-busqueda:focus {
+            border-color: #007bff;
+            background: rgba(0,0,0,0.4);
+            box-shadow: 0 0 15px rgba(0,123,255,0.3);
+        }
+
+        /* ✨ EFECTO DE LUZ Y SUAVIDAD EN TARJETAS */
+        .tarjeta {
+            background: #23232e;
+            border: 1px solid rgba(255,255,255,0.03);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .tarjeta:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(0,123,255,0.3);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.5);
+        }
         
         .tarjeta h3 { margin: 12px 0 5px 0; font-size: 16px; color: #fff; text-align: left; }
         .etiqueta { display: inline-block; background: #28a745; color: white; font-size: 11px; padding: 3px 8px; border-radius: 10px; margin-top: auto; align-self: flex-start; }
@@ -55,6 +114,10 @@
         @media (max-width: 480px) {
             body { padding: 8px; }
             .btn { padding: 6px 12px; font-size: 12px; }
+
+            .portada-hero { padding: 40px 15px; margin-bottom: 20px; border-radius: 12px; }
+            .portada-hero h1 { font-size: 26px; }
+            .portada-hero p { font-size: 13px; }
             
             /* 📱 Muestra 3 imágenes por fila en lugar de 1 */
             .galeria { grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 5px 0; }
@@ -70,10 +133,17 @@
 </head>
 <body>
 
-    <h1>🎬📸 Quintos del 86 Corella 📸🎬</h1>
+    <!-- 🌌 PORTADA DE BIENVENIDA -->
+    <div class="portada-hero">
+        <h1>Mi Galería de Recuerdos</h1>
+        <p>Un espacio dinámico para revivir nuestros mejores momentos, fotografías y videos compartidos.</p>
+        
+        <!-- El buscador ahora vive integrado dentro de la portada de forma elegante -->
+        <input type="text" id="buscador" class="caja-busqueda" placeholder="🔍 Busca a alguien o un recuerdo por su título..." oninput="filtrarPorTexto()">
+    </div>
     
     <div class="seccion-filtros">
-        <input type="text" id="buscador" class="caja-busqueda" placeholder="🔍 Escribe para buscar por título..." oninput="filtrarPorTexto()">
+       
 
         <div class="titulo-filtro">Filtrar por Evento o Fecha</div>
         <div class="filtros" id="contenedor-eventos"></div>
