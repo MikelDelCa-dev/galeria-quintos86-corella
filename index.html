@@ -38,6 +38,71 @@
         .btn-pag:hover { background: #3a3a4a; }
         .btn-pag.activo { background: #28a745; font-weight: bold; pointer-events: none; }
         .btn-pag:disabled { background: #1a1a20; color: #555; cursor: not-allowed; }
+
+        /* 🌌 PORTADA / CABECERA HERO PREMIUM */
+        .portada-hero {
+            background-color: #23232e; /* Color de seguridad por si internet va lento */
+            background-image: linear-gradient(to bottom, rgba(30, 30, 36, 0.6), rgba(30, 30, 36, 0.95)), url('https://i.postimg.cc/1XqWbqDn/corella.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 60px 20px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .portada-hero h1 {
+            font-size: 36px;
+            background: linear-gradient(45deg, #007bff, #28a745);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 10px 0;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        .portada-hero p {
+            color: #aaa;
+            font-size: 16px;
+            margin: 0 auto 20px auto;
+            max-width: 500px;
+        }
+
+        /* 🔍 BUSCADOR ESTILIZADO */
+        .caja-busqueda {
+            width: 100%;
+            max-width: 450px;
+            padding: 12px 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.2);
+            color: white;
+            border-radius: 30px;
+            font-size: 15px;
+            margin-bottom: 0;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .caja-busqueda:focus {
+            border-color: #007bff;
+            background: rgba(0,0,0,0.4);
+            box-shadow: 0 0 15px rgba(0,123,255,0.3);
+        }
+
+        /* ✨ EFECTO DE LUZ Y SUAVIDAD EN TARJETAS */
+        .tarjeta {
+            background: #23232e;
+            border: 1px solid rgba(255,255,255,0.03);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .tarjeta:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(0,123,255,0.3);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.5);
+        }
         
         .tarjeta h3 { margin: 12px 0 5px 0; font-size: 16px; color: #fff; text-align: left; }
         .etiqueta { display: inline-block; background: #28a745; color: white; font-size: 11px; padding: 3px 8px; border-radius: 10px; margin-top: auto; align-self: flex-start; }
@@ -51,10 +116,91 @@
         .lightbox-caja-contenido img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .lightbox-caja-contenido iframe { width: 100%; height: 100%; border: none; }
 
+        /* 🔽 ESTILO PARA EL MENÚ DESPLEGABLE MODERNO */
+        .selector-moderno {
+            padding: 10px 20px;
+            background: #3a3a4a;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+            width: 100%;
+            max-width: 300px;
+            transition: all 0.3s ease;
+            text-align-last: center; /* Centra el texto dentro del menú */
+        }
+        .selector-moderno:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0,123,255,0.2);
+        }
+        .selector-moderno option {
+            background: #2a2a35;
+            color: white;
+            padding: 10px;
+        }
+
+        /* ⏳ ESTILOS PARA LA LÍNEA DEL TIEMPO EN LA PORTADA */
+        .linea-tiempo-portada {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px auto;
+            max-width: 750px;
+        }
+        .foto-epoca {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+        .marco-foto {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Hace las fotos perfectamente cuadradas */
+            border-radius: 50%; /* Convierte las fotos en círculos elegantes */
+            overflow: hidden;
+            border: 3px solid #007bff;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, border-color 0.3s;
+            background: #111;
+        }
+        .marco-foto img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .foto-epoca:hover .marco-foto {
+            transform: scale(1.08) rotate(2deg);
+            border-color: #28a745;
+        }
+        .foto-epoca span {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ddd;
+            letter-spacing: 0.5px;
+        }
+
         /* Ajustes extra para pantallas móviles compactas */
         @media (max-width: 480px) {
             body { padding: 8px; }
             .btn { padding: 6px 12px; font-size: 12px; }
+
+            .portada-hero { padding: 40px 15px; margin-bottom: 20px; border-radius: 12px; }
+            .portada-hero h1 { font-size: 26px; }
+            .portada-hero p { font-size: 13px; }
+             /* 📱 Adaptación del Tríptico para Pantallas Móviles */
+            .linea-tiempo-portada {
+                gap: 12px;
+                margin: 20px auto;
+            }
+            .marco-foto {
+                border-width: 2px;
+            }
+            .foto-epoca span {
+                font-size: 11px;
+            }
             
             /* 📱 Muestra 3 imágenes por fila en lugar de 1 */
             .galeria { grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 5px 0; }
@@ -70,13 +216,43 @@
 </head>
 <body>
 
-    <h1>🎬📸 Quintos del 86 Corella 📸🎬</h1>
+    <!-- 🌌 PORTADA DE BIENVENIDA CON LÍNEA DEL TIEMPO -->
+    <div class="portada-hero">
+        <h1>🎬📸 Quintos del 86 Corella 📸🎬</h1>
+        <p>Un espacio dinámico para revivir nuestros mejores momentos, fotografías y videos compartidos.</p>
+        
+        <!-- ⏳ TRÍPTICO VISUAL: Línea del tiempo de la Quinta -->
+        <div class="linea-tiempo-portada">
+            <div class="foto-epoca">
+                <div class="marco-foto">
+                    <img src="https://i.postimg.cc/Vsd2rH3b/Quintos-De-Jovenes.jpg" alt="Cuando éramos pequeños" onclick="abrirVisor('https://i.postimg.cc/Vsd2rH3b/Quintos-De-Jovenes.jpg', 'foto')" style="cursor: pointer;">
+                </div>
+                <span>👶 Pequeños</span>
+            </div>
+            <div class="foto-epoca">
+                <div class="marco-foto">
+                    <img src="https://i.postimg.cc/NG5Z9PW9/Quintos18.jpg" alt="A los 18 años" onclick="abrirVisor('https://i.postimg.cc/NG5Z9PW9/Quintos18.jpg', 'foto')" style="cursor: pointer;">
+                </div>
+                <span>🎉 18 Años</span>
+            </div>
+            <div class="foto-epoca">
+                <div class="marco-foto">
+                    <img src="https://i.postimg.cc/TwhDsmth/IMG-20260905-WA0004.jpg" alt="A los 40 años" onclick="abrirVisor('https://i.postimg.cc/TwhDsmth/IMG-20260905-WA0004.jpg', 'foto')" style="cursor: pointer;">
+                </div>
+                <span>🚀 40 Años</span>
+            </div>
+        </div>
+        
+        <!-- El buscador se mantiene elegante abajo -->
+        <input type="text" id="buscador" class="caja-busqueda" placeholder="🔍 Busca a alguien o un recuerdo por su título..." oninput="filtrarPorTexto()">
+    </div>
     
     <div class="seccion-filtros">
-        <input type="text" id="buscador" class="caja-busqueda" placeholder="🔍 Escribe para buscar por título..." oninput="filtrarPorTexto()">
-
         <div class="titulo-filtro">Filtrar por Evento o Fecha</div>
-        <div class="filtros" id="contenedor-eventos"></div>
+        <div class="filtros">
+            <!-- El select reemplaza a la fila de botones para ahorrar un 90% de espacio -->
+            <select id="desplegable-eventos" class="selector-moderno" onchange="cambiarEventoDesplegable()"></select>
+        </div>
         
         <div style="border-top: 1px solid #3a3a4a; margin: 10px 0;"></div>
         
