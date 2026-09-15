@@ -40,13 +40,19 @@
         .btn-pag:disabled { background: #1a1a20; color: #555; cursor: not-allowed; }
 
         /* 🌌 PORTADA / CABECERA HERO PREMIUM */
-        .portada-hero {
-            background: linear-gradient(135deg, #2a2a35 0%, #111115 100%);
+        portada-hero {
+            /* 📸 Imagen de fondo (puedes cambiar esta URL aleatoria por una foto bonita de tu quinta) */
+            background-image: linear-gradient(to bottom, rgba(30, 30, 36, 0.7), rgba(30, 30, 36, 0.95)), url('https://media.traveler.es/photos/64ae613ba43e204cc3d7fdb8/16:9/w_1920,c_limit/2C74MTA%20(1).jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll; /* Mantiene la foto fluida en móviles */
             padding: 60px 20px;
             border-radius: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.08);
+            position: relative;
+            overflow: hidden;
         }
         .portada-hero h1 {
             font-size: 36px;
